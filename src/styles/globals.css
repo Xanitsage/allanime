@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom global styles */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.text-neon {
+  color: #00ffe7;
+  text-shadow: 0 0 8px #00ffe7, 0 0 16px #00ffe7;
+}
+.bg-neon {
+  background: linear-gradient(90deg, #00ffe7 0%, #7f00ff 100%);
+}

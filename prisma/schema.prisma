@@ -1,0 +1,45 @@
+// Prisma schema for anime streaming platform (inspired by aniwatchtv.to)
+// Add more fields and relations as needed
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Anime {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  coverImage  String
+  genres      String[]
+  episodes    Episode[]
+  trending    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  watchlistedBy User[] @relation("Watchlist")
+}
+
+model Episode {
+  id        String   @id @default(uuid())
+  animeId   String
+  title     String
+  number    Int
+  videoUrl  String
+  duration  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  anime     Anime    @relation(fields: [animeId], references: [id])
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  username  String   @unique
+  watchlist Anime[]  @relation("Watchlist")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
